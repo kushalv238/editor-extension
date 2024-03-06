@@ -1,0 +1,21 @@
+{
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "name": "Editor Extension",
+    "description": "This is an extension for a editor app.",
+    "author": "DJSCE",
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Editor Extension"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["contentScript.js"]
+        }
+    ],
+    "permissions": ["scripting"]
+}
