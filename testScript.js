@@ -1,3 +1,5 @@
+// test for extensions working
+
 BACKEND_URI = `https://gorest.co.in/public/v2/users`
 
 async function get() {
@@ -17,7 +19,7 @@ async function get() {
         console.error(error);
     }
 
-    document.getElementById('editor-res').innerHTML = result.map((item, idx) => {
+    document.getElementById('editor-output').innerHTML = result.map((item, idx) => {
         return `<li>${item.name}</li>`
     }).join('')
 }

@@ -8,6 +8,16 @@ html {
     box-sizing: border-box;
 }
 
-#editor-res {
-    padding: 2rem 5rem;
+body {
+    width: 20rem;
+    padding: 1rem;
+}
+
+.title {
+    font-size: 1.5rem;
+}
+
+#editor-output {
+    margin-top: 1rem;
+    font-size: 1.2rem;
 }

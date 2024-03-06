@@ -17,5 +17,5 @@
             "js": ["contentScript.js"]
         }
     ],
-    "permissions": ["scripting"]
+    "permissions": ["tabs", "storage", "scripting"]
 }
