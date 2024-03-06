@@ -5,16 +5,16 @@
     "description": "This is an extension for a editor app.",
     "author": "DJSCE",
     "action": {
-        "default_popup": "index.html",
+        "default_popup": "/src/html/index.html",
         "default_title": "Editor Extension"
     },
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "/src/script/background.js"
     },
     "content_scripts": [
         {
             "matches": ["http://*/*", "https://*/*"],
-            "js": ["contentScript.js"]
+            "js": ["/src/script/contentScript.js"]
         }
     ],
     "permissions": ["tabs", "storage", "scripting"]
