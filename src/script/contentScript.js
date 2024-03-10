@@ -1,6 +1,6 @@
 console.log("Editor litening for selected texts")
 
-if (window.location.href.includes('localhost:5173')) {
+if (window.location.href.includes('essayanalyzer.netlify.app')) {
     console.log("Editor litening for auth")
 }
 
@@ -36,7 +36,7 @@ chrome.runtime.onMessage.addListener(async (request, sender, response) => {
         }
     }
 
-    if (window.location.href.includes('localhost:5173') && type === "AUTH") {
+    if (window.location.href.includes('essayanalyzer.netlify.app') && type === "AUTH") {
         try {
             const user = await getUserInfo()
             response({ success: true, message: "User info recieved", data: user })

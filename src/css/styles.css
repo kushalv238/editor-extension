@@ -8,14 +8,24 @@
 
 html {
     box-sizing: border-box;
+    overflow-y: scroll;
 }
 
 body {
     width: 20rem;
     padding: 1rem;
+    background-color: rgba(30, 143, 255, 0.155);
 }
 
 .title {
+    background-color: rgba(68, 202, 124, 0.468);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title h2 {
     font-size: 1.5rem;
 }
 
@@ -63,4 +73,59 @@ body {
     right: 10px;
     font-size: 24px;
     cursor: pointer;
+}
+
+.error {
+    color: red !important;
+}
+
+.flex {
+    display: flex;
+}
+
+.flexed-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flexed-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flexed-away {
+    display: flex;
+    justify-content: space-between;
+}
+
+.rounded {
+    width: 1.75rem;
+    height: 1.75rem;
+
+    border-radius: 50%;
+}
+
+#essay-analysed {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 2rem;
+}
+
+#essay-highlighted,
+#essay-breakdown,
+#essay-breakdown-count,
+#essay-rhythm {
+    width: 100%;
+}
+
+#essay-breakdown-count,
+#essay-rhythm {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#essay-statistics {
+    width: 50%;
 }
