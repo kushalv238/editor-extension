@@ -1,5 +1,9 @@
 console.log("Editor litening for selected texts")
 
+if (window.location.href.includes('localhost:5173')) {
+    console.log("Editor litening for auth")
+}
+
 const returnSelection = () => {
     return new Promise((resolve, reject) => {
         if (window.getSelection) {
@@ -12,14 +16,32 @@ const returnSelection = () => {
     })
 }
 
+const getUserInfo = () => {
+    return new Promise((resolve, reject) => {
+        if (window.localStorage.getItem('user')) {
+            resolve(window.localStorage.getItem('user').toString())
+        } else reject();
+    })
+}
+
 chrome.runtime.onMessage.addListener(async (request, sender, response) => {
     const { type } = request
+    
     if (type === "LOAD") {
         try {
             const selection = await returnSelection()
             response(selection)
         } catch (e) {
             response()
+        }
+    }
+
+    if (window.location.href.includes('localhost:5173') && type === "AUTH") {
+        try {
+            const user = await getUserInfo()
+            response({ success: true, message: "User info recieved", data: user })
+        } catch (e) {
+            response({ success: false, message: e })
         }
     }
 })
