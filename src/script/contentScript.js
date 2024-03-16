@@ -1,9 +1,12 @@
+// This script will be injected to the website on page load, and will be used communicate with the extension
+
 console.log("Editor litening for selected texts")
 
 if (window.location.href.includes('essayanalyzer.netlify.app')) {
     console.log("Editor litening for auth")
 }
 
+// to get selected texts
 const returnSelection = () => {
     return new Promise((resolve, reject) => {
         if (window.getSelection) {
@@ -16,6 +19,7 @@ const returnSelection = () => {
     })
 }
 
+// for syncing auth information
 const getUserInfo = () => {
     return new Promise((resolve, reject) => {
         if (window.localStorage.getItem('user')) {

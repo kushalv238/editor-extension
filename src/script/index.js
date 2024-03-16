@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    let user = window.localStorage.getItem("user")
-
     const getActiveTab = async () => {
         const tabs = await chrome.tabs.query({
             currentWindow: true,
@@ -29,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return `<span
                 data-key=${sentence.sentence_id}
                 class="text-xs"
-                style="background-color: ${bgcolor}; color: ${color}; font-weight: 600; letter-spacing: 0.025em"
+                style=" background-color: ${bgcolor}; color: ${color}; font-weight: 600; letter-spacing: 0.025em"
             >
                 ${sentence.content}
             </span>`;
@@ -37,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         return (
             `
-                <h3>Selected Text</h3>
+                <h3>Selected Text:</h3>
                 ${highlightedText}
             `
         )
@@ -59,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         return (
             `
-                <h3>Breakdown</h3>
+                <h3>Breakdown:</h3>
                 ${brokenDownText}
             `
         )
@@ -82,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         return (
             `
-                <h3>Breakdown count:&nbsp;</h3>
+                <div>Breakdown count:&nbsp;</div>
                 ${brokenDownCount}
             `
         )
@@ -121,7 +119,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     function getStatistics(sentences) {
         return (
             `
-            <h3>Statistics</h3>
+            <h3>Statistics:</h3>
             <div class="flexed-wrap flexed-away">
                 <div style="color: #1A5D1A" class="flexed-center">
                     Short Sentences:
@@ -148,9 +146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 >
                     ${
                         sentences.filter(
-                            (sentence) =>
-                                sentence.content.split(/\s+/).length > 5 &&
-                                sentence.content.split(/\s+/).length <= 18
+                            (sentence) => sentence.content.split(/\s+/).length > 5 && sentence.content.split(/\s+/).length <= 18
                         ).length
                     }
                 </div>
@@ -165,8 +161,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 >
                     ${
                         sentences.filter(
-                            (sentence) =>
-                                sentence.content.split(/\s+/).length > 18
+                            (sentence) => sentence.content.split(/\s+/).length > 18
                         ).length
                     }
                 </div>
@@ -175,7 +170,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     function handleResponseOnExtension(res) {
-        // visualize/show/print analysed data
+        // to visualize/show/print analysed res data
+
         const { success, data } = res
         if (!success) {
             document.getElementById("editor-output").classList.add('error')
@@ -210,7 +206,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const getData = async (selection) => {
         if (!selection?.length == 0) {
             document.getElementById("editor-output").innerHTML = "Loading..."
-
+            
+            let user = window.localStorage.getItem("user")
+            
             const port = chrome.runtime.connect();
             port.postMessage({ selectedText: selection, user })
             port.onMessage.addListener((res) => {
@@ -218,60 +216,80 @@ document.addEventListener("DOMContentLoaded", async () => {
             })
         } else {
             // if no text is selected
-            // TODO: replace with some default styling
-            document.getElementById("editor-output").innerHTML = "You have to first select some text"
+            document.getElementById("editor-output").innerHTML = `
+                <h3>You have to first select some text.</h3>
+                <p>If you have just logged in, the page you want to work upon will have to reload.</p>
+            `
         }
     }
 
     const getSelectedText = async () => {
         // Chrome does not allow injection of service workers for chrome internal pages
+        // chrome internal pages: https://winaero.com/the-list-of-chrome-urls-for-internal-built-in-pages/
         // this condition returns early on chrome default pages avoiding errors
         if (/^chrome:\/\//.test(activeTab.url)) {
-            document.getElementById("editor-output").innerHTML = `This extension does not work for <a href=${'https://winaero.com/the-list-of-chrome-urls-for-internal-built-in-pages/'} target='_blank'>chrome internal pages</a>.`
+            document.getElementById("editor-output").innerHTML = 
+            `This extension does not work for <a href=${'https://winaero.com/the-list-of-chrome-urls-for-internal-built-in-pages/'} target='_blank'>chrome internal pages</a>.`
             return;
         }
-
+        // calls the contentScript on the webpage to get selected text
         chrome.tabs.sendMessage(activeTab.id, { type: "LOAD" }, getData)
     }
 
+    // main method
     function launch() {
+        let user = window.localStorage.getItem("user")
         if (/^https:\/\/essayanalyzer.netlify.app/.test(activeTab.url)) {
+            document.getElementById('editor-output').innerHTML = "Welcome to Essay Analyzer, log in and click the extension icon again."
+            chrome.tabs.sendMessage(activeTab.id, { type: "AUTH" }, (res) => {
+                if (res.success) {
+                    localStorage.setItem("user", res.data)
+                    user = res.data
+                    document.getElementById("auth").classList.add('hide')
+            
+                    document.getElementById("user-info").classList.remove('hide')
+                    document.getElementById("user-info").title = res.data
+                } else {
+                    localStorage.removeItem("user")
+                    user = null
+                }
+            })
+
             setInterval(() => {
                 chrome.tabs.sendMessage(activeTab.id, { type: "AUTH" }, (res) => {
                     if (res.success) {
                         localStorage.setItem("user", res.data)
                         user = res.data
+                        document.getElementById("auth").classList.add('hide')
+            
+                        document.getElementById("user-info").classList.remove('hide')
+                        document.getElementById("user-info").title = res.data
                     } else {
                         localStorage.removeItem("user")
                         user = null
                     }
                 })
-            }, 1000)
-        }
-
-        if (!user) {
-            document.getElementById("auth").classList.remove('hide')
-
-            const loginBttn = document.querySelector('button[title=login]')
-            const signupBttn = document.querySelector('button[title=signup]')
-
-            loginBttn.addEventListener('click', function () {
-                window.open('https://essayanalyzer.netlify.app?fromExtension=true', "_blank")
-            })
-            signupBttn.addEventListener('click', function () {
-                window.open('https://essayanalyzer.netlify.app?fromExtension=true', "_blank")
-            })
-
+            }, 500)
         } else {
-            document.getElementById("auth").classList.add('hide')
-            
-            document.getElementById("user-info").classList.remove('hide')
-            document.getElementById("user-info").innerHTML = user
-            
-            getSelectedText()
+            if (!user) {
+                document.getElementById("auth").classList.remove('hide')
+    
+                const signInBttn = document.querySelector('button[title=signin]')
+    
+                signInBttn.addEventListener('click', function () {
+                    window.open('https://essayanalyzer.netlify.app?fromExtension=true', "_blank")
+                })
+    
+            } else {
+                document.getElementById("auth").classList.add('hide')
+                
+                document.getElementById("user-info").classList.remove('hide')
+                document.getElementById("user-info").title   = user
+                
+                getSelectedText()
+            }
         }
     }
 
     launch()
-
 })

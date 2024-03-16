@@ -9,24 +9,81 @@
 html {
     box-sizing: border-box;
     overflow-y: scroll;
+    width: 20rem;
 }
 
 body {
-    width: 20rem;
-    padding: 1rem;
-    background-color: rgba(30, 143, 255, 0.155);
+    width: 100%;
+   
 }
 
-.title {
-    background-color: rgba(68, 202, 124, 0.468);
+#main {
+    padding: 0.5rem;
+}
+
+#title {
+    background-color: rgb(0 8 66 / .85);
+    color: white;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    height: 3rem;
 }
 
-.title h2 {
+#title > div {
+    width: 80%;
+    height: 100%;
+
+    padding: 0 10px;
+
     font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.title-wrapper {
+    width: 100%;
+    height: 100%;
+    animation: fadeInLeft 0.5s ease-out;
+    margin-bottom: -0.75rem;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.text-1 {
+    width: 100%;
+    margin-bottom: -10px;
+    color: #fff;
+}
+
+.text-2 {
+    width: 100%;
+    z-index: 10;
+    color: #3848c0;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+#user-info {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    padding: 8px;
 }
 
 #editor-output {
@@ -87,11 +144,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 2px;
 }
 
 .flexed-wrap {
     display: flex;
     flex-wrap: wrap;
+    margin-right: -50px;
+   
 }
 
 .flexed-away {
@@ -106,11 +168,18 @@ body {
     border-radius: 50%;
 }
 
+.w-full {
+    width: 100%;
+    border: none; /* Remove default border */
+    border-top: 0.5px dashed #333; /* Change color as desired */
+    margin: 6px 0; /* Add margin for spacing */
+}
+
 #essay-analysed {
     display: flex;
     flex-wrap: wrap;
 
-    gap: 2rem;
+    gap: 1rem;
 }
 
 #essay-highlighted,
@@ -118,7 +187,10 @@ body {
 #essay-breakdown-count,
 #essay-rhythm {
     width: 100%;
+    text-align: justify;
 }
+
+
 
 #essay-breakdown-count,
 #essay-rhythm {
@@ -129,3 +201,163 @@ body {
 #essay-statistics {
     width: 50%;
 }
+
+#signin{
+    background-color: rgb(0 8 66 / .85);
+    color: #fff;
+    border: 2px solid #3498db;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 150px;
+    font-weight: bold;
+}
+
+#signin:hover{
+    background-color: rgba(0, 13, 109, 0.85);
+    border-color: rgba(0, 13, 109, 0.85);
+}
+
+#signin-info{
+    /* font-family: 'Arial', sans-serif; */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(0 8 66 / .85);; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px;
+    line-height: 1.5; 
+    padding-top: 5px;
+    padding-bottom: 10px;
+
+}
+
+#editor-output{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(0 8 66 / .85);; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px;
+    line-height: 1.5; 
+    padding-top: 5px;
+    padding-bottom: 10px;
+
+}
+
+#essay-highlighted h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px; 
+    font-weight: bold; 
+    color: #333; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px; 
+    line-height: 1.5; 
+}
+
+#essay-highlighted span{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; 
+    color: #333; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px; 
+    line-height: 1.5; 
+    text-align: center;
+    padding: 3px; 
+}
+
+#essay-breakdown h3{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: bold; 
+    color: #333; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px; 
+    line-height: 1.5; 
+}
+
+#essay-breakdown div{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; 
+    color: #333; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px; 
+    line-height: 1.5; 
+    padding: 3px;
+}
+
+#essay-breakdown-count div{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: bold; 
+    color: #333; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px; 
+    line-height: 1.5; 
+}
+
+#essay-breakdown-count{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px; 
+    color: #333; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px; 
+    line-height: 1.5; 
+    padding: 3px;
+
+}
+
+#essay-breakdown-count span{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px; 
+    color: #333; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px; 
+    line-height: 1.5; 
+    padding: 3px;
+}
+
+#essay-rhythm h3{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: bold; 
+    color: #333; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px; 
+    line-height: 1.5; 
+}
+
+#essay-rhythm{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px; 
+    color: #333; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px; 
+    line-height: 1.5; 
+    padding: 3px;
+}
+
+#essay-rhythm span{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px; 
+    color: #333; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px; 
+    line-height: 1.5; 
+    padding: 3px;
+}
+
+#essay-statistics h3{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: bold; 
+    color: #333; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+    letter-spacing: 1px; 
+    line-height: 1.5; 
+}
+

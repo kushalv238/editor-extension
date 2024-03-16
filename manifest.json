@@ -1,20 +1,21 @@
 {
     "version": "1.0.0",
     "manifest_version": 3,
-    "name": "Editor Extension",
-    "description": "This is an extension for a editor app.",
+    "name": "Essay Analyzer",
+    "description": "Analyze you texts by just a simple selection of texts.",
     "author": "DJSCE",
     "action": {
-        "default_popup": "/src/html/index.html",
-        "default_title": "Editor Extension"
+        "default_popup": "src/html/index.html",
+        "default_title": "Essay Analyzer",
+        "default_icon": "src/resources/logo.png"
     },
     "background": {
-        "service_worker": "/src/script/background.js"
+        "service_worker": "src/script/background.js"
     },
     "content_scripts": [
         {
             "matches": ["http://*/*", "https://*/*"],
-            "js": ["/src/script/contentScript.js"]
+            "js": ["src/script/contentScript.js"]
         }
     ],
     "permissions": ["tabs", "storage", "scripting"]

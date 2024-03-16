@@ -9,28 +9,43 @@
     </head>
 
     <body>
-        <div class="title">
-            <h2>Editor</h2>
-            <p id="user-info" class="hide"></p>
+        <div id="title">
+            <div>
+                <div class="title-wrapper">
+                    <div class="text-1">ESSAY</div>
+                    <div class="text-2">ANALYSER</div>
+                </div>
+            </div>
+            <a href="https://essayanalyzer.netlify.app/" target="_blank" rel="noopener" title="user" id="user-info" class="hide">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 340 340" preserveAspectRatio="xMidYMid meet">
+                    <path fill="#DDD" d="m169,.5a169,169 0 1,0 2,0zm0,86a76,76 0 1 1-2,0zM57,287q27-35 67-35h92q40,0 67,35a164,164 0 0,1-226,0"/>
+                </svg>
+            </a>
         </div>
 
-        <div id="editor-output"></div>
-
-        <div id="auth" class="hide">
-            <p>
-                You need to signin to continue
-            </p>
-            <button title="login">LogIn</button>
-            <button title="signup">Signup</button>
+        <div id="main">
+            <div id="editor-output"></div>
+    
+            <div id="auth" class="hide">
+                <p id="signin-info">
+                    You need to sign in to start using this extension.
+                </p>
+                <button id="signin" title="signin">Sign in</button>
+            </div>
+    
+            <div id="essay-analysed" class="hide">
+                <div id="essay-highlighted"></div>
+                <hr class="w-full">
+                <div id="essay-breakdown"></div>
+                <hr class="w-full">
+                <div id="essay-breakdown-count"></div>
+                <hr class="w-full">
+                <div id="essay-rhythm"></div>
+                <hr class="w-full">
+                <div id="essay-statistics"></div>
+            </div>
         </div>
 
-        <div id="essay-analysed" class="hide">
-            <div id="essay-highlighted"></div>
-            <div id="essay-breakdown"></div>
-            <div id="essay-breakdown-count"></div>
-            <div id="essay-rhythm"></div>
-            <div id="essay-statistics"></div>
-        </div>
 
         <script src="./../script/index.js"></script>
     </body>

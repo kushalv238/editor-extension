@@ -1,6 +1,5 @@
-// for api calls
-// BACKEND_URI = `https://jayneet639.pythonanywhere.com`
-BACKEND_URI = `http://127.0.0.1:8000`
+// for api calls to backend
+BACKEND_URI = `https://jayneet639.pythonanywhere.com`
 
 async function postData(user, selectedText) {
     const url = `${BACKEND_URI}/users/`;
@@ -31,7 +30,7 @@ async function postData(user, selectedText) {
 }
 
 async function getVersionedData(user) {
-    const url = `${BACKEND_URI}/users/${user}`;
+    const url = `${BACKEND_URI}/users/${user}/`;
 
     const options = {
         method: 'GET',
@@ -44,7 +43,7 @@ async function getVersionedData(user) {
         const response = await fetch(url, options);
         const result = await response.json();
         
-        const versions = result[0].versions
+        const versions = result.filter(item => item.doc_name === "extension-doc")[0].versions
 
         data = { success: true, data: versions[versions.length-1] }
 
@@ -61,7 +60,6 @@ chrome.runtime.onConnect.addListener((port) => {
     port.onMessage.addListener(async (msg) => {
         const { user, selectedText } = msg
 
-        // TODO: run api to fetch info here
         const postedData = await postData(user, selectedText)
         if(!postedData.success) {
             port.postMessage(postedData)
