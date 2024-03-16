@@ -1,5 +1,7 @@
 # Editor Extension
 
+A Chrome extension codebase for [https://essayanalyzer.netlify.app/](https://essayanalyzer.netlify.app/)
+
 ## Running locally
 
 1. Clone this Extension Repository
